@@ -32,6 +32,16 @@ type frame struct {
 	payload []byte
 }
 
+func (*frame) ProtoMessage() {}
+
+func (f *frame) String() string {
+	return string(f.payload)
+}
+
+func (f *frame) Reset() {
+	*f = frame{}
+}
+
 func (c *rawCodec) Marshal(v interface{}) ([]byte, error) {
 	out, ok := v.(*frame)
 	if !ok {
